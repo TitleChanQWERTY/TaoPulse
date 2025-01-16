@@ -5,12 +5,25 @@ namespace TaoPulse.ShootEmUp.Player
 {
     public sealed class PlayerController : MonoBehaviour
     {
+        private static PlayerController _playerController;
+
+        public static PlayerController Instance
+        {
+            get
+            {
+                if (!_playerController) _playerController = FindAnyObjectByType<PlayerController>();
+                return _playerController;
+            }
+        }
+        
         [SerializeField] private float defaultSpeedMove;
         [SerializeField] private Camera mainCamera;
-
+        
         private Rigidbody2D _rigidbody2D;
         private Vector2 _moveVelocity;
         private float _speedMove;
+
+        public Camera MainCamera => mainCamera;
 
         private void Start()
         {
@@ -34,7 +47,7 @@ namespace TaoPulse.ShootEmUp.Player
             _moveVelocity = InputManager.Instance.MoveAxis;
             _moveVelocity = _moveVelocity.normalized;
         }
-
+        
         private void Look()
         {
             switch (InputManager.Instance.CurrentControls)

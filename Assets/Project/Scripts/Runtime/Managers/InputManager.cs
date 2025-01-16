@@ -32,6 +32,8 @@ namespace TaoPulse.Managers
         public KeyControl[] NumberKeys { get; private set; }
 
         public Controls CurrentControls => _currentControls;
+
+        public InputActions InputActions => _inputActions;
         
         private void Awake()
         {

@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 70099019}
   - component: {fileID: 70099020}
   - component: {fileID: 70099021}
+  - component: {fileID: 70099022}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -165,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee89f1ef8082a204e85c908c8a8297e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultSpeedMove: 12.5
+  defaultSpeedMove: 15.5
   mainCamera: {fileID: 1730569873}
 --- !u!50 &70099021
 Rigidbody2D:
@@ -194,6 +195,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &70099022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70099018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 673d555850554445997bbca2533dd66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnShape: 0
+  radius: 5
+  spawnObjects:
+  - {fileID: 3107476074254515884, guid: 4203f3f831775dc46b4b4e83ff38325c, type: 3}
+  destroyingTime: 1.5
+  timeOutSpawn: 0.05
+  onUpdate: 0
 --- !u!1 &726707675
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +778,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b4c7a1b26c60ba4468dd4d6c12d535d1, type: 3}
+  m_Sprite: {fileID: 3345508739736421500, guid: a299dae1596d83d49b930d9db8247d70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
