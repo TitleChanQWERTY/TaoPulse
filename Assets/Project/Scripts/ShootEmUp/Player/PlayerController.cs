@@ -1,16 +1,65 @@
+using System;
+using TaoPulse.Managers;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+namespace TaoPulse.ShootEmUp.Player
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public sealed class PlayerController : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private float speedMove;
+        [SerializeField] private Camera mainCamera;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private Rigidbody2D _rigidbody2D;
+        private Vector2 _moveVelocity;
+
+        private void Start()
+        {
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+        }
+
+        private void Update()
+        {
+            Move();
+            Look();
+        }
+
+        private void FixedUpdate()
+        {
+            _rigidbody2D.linearVelocity = _moveVelocity * speedMove;
+        }
+
+        private void Move()
+        {
+            _moveVelocity = InputManager.Instance.MoveAxis;
+            _moveVelocity = _moveVelocity.normalized;
+        }
+
+        private void Look()
+        {
+            switch (InputManager.Instance.CurrentControls)
+            {
+                case Controls.KeyboardAndMouse:
+                {
+                    Vector3 mousePosition = mainCamera.ScreenToWorldPoint(InputManager.Instance.GetMousePosition());
+                    Vector2 direction = (mousePosition - transform.position).normalized;
+                
+                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                
+                    _rigidbody2D.rotation = angle;
+                    break;
+                }
+                case Controls.Gamepad:
+                {
+                    if (InputManager.Instance.LookAxis.magnitude > 0.01f)
+                    {
+                        float angle = Mathf.Atan2(InputManager.Instance.LookAxis.y, InputManager.Instance.LookAxis.x) * Mathf.Rad2Deg;
+                
+                        _rigidbody2D.rotation = angle * Time.deltaTime;   
+                    }
+                    break;
+                }
+            }
+        }
     }
 }
+
