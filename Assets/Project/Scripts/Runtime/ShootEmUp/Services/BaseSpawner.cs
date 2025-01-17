@@ -43,34 +43,25 @@ namespace TaoPulse.ShootEmUp.Services
             _isCanSpawn = true;
         }
 
-        public void SetNewSpawnObjects(GameObject[] objects)
-        {
-            spawnObjects = objects;
-        }
+        public void SetNewSpawnObjects(GameObject[] objects) => spawnObjects = objects;
 
-        public void SetNewTimeout(float value)
-        {
-            timeOutSpawn = value;
-        }
-        
-        public void Spawn()
-        {
-            if (!_isCanSpawn) return;
-            switch (spawnShape)
-            {
-                case SpawnShape.Dot:
-                    DotSpawn();
-                    break;
-                case SpawnShape.Circle:
-                    CircleSpawn();
-                    break;
-            }
+        public void SetNewTimeout(float value) => timeOutSpawn = value;
 
+        protected GameObject[] Spawn()
+        {
+            if (!_isCanSpawn) return null;
             _isCanSpawn = false;
+            return spawnShape switch
+            {
+                SpawnShape.Dot => DotSpawn(),
+                SpawnShape.Circle => CircleSpawn(),
+                _ => null
+            };
         }
 
-        private void CircleSpawn()
+        private GameObject[] CircleSpawn()
         {
+            GameObject[] gameObjects = new GameObject[spawnObjects.Length];
             for (int i = 0; i < spawnObjects.Length; i++)
             {
                 float angle = i * Mathf.PI * 2 / spawnObjects.Length;
@@ -82,19 +73,26 @@ namespace TaoPulse.ShootEmUp.Services
                 );
                 
                 GameObject spawned = Instantiate(spawnObjects[i], transform.position + spawnPosition, Quaternion.identity);
+                gameObjects[i] = spawned;
                 if (destroyingTime <= 0) continue;
                 Destroy(spawned, destroyingTime);
             }
+
+            return gameObjects;
         }
 
-        private void DotSpawn()
+        private GameObject[] DotSpawn()
         {
+            GameObject[] gameObjects = new GameObject[spawnObjects.Length];
             for (int i = 0; i < spawnObjects.Length; i++)
             {
                 GameObject spawned = Instantiate(spawnObjects[i], transform.position, Quaternion.identity);
+                gameObjects[i] = spawned;
                 if (destroyingTime <= 0) continue;
                 Destroy(spawned, destroyingTime);
             }
+
+            return gameObjects;
         }
     }
 }

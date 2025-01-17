@@ -56,29 +56,21 @@ namespace TaoPulse.ShootEmUp.Player
                 {
                     Vector3 mousePosition = mainCamera.ScreenToWorldPoint(InputManager.Instance.GetMousePosition());
                     Vector2 direction = (mousePosition - transform.position).normalized;
-                
                     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                
                     _rigidbody2D.rotation = angle;
                     break;
                 }
                 case Controls.Gamepad:
                 {
-                    if (InputManager.Instance.LookAxis.magnitude > 0.01f)
-                    {
-                        float angle = Mathf.Atan2(InputManager.Instance.LookAxis.y, InputManager.Instance.LookAxis.x) * Mathf.Rad2Deg;
-                
-                        _rigidbody2D.rotation = angle * Time.deltaTime;   
-                    }
+                    Vector2 direction = new Vector2(InputManager.Instance.LookAxis.x, InputManager.Instance.LookAxis.y);
+                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    _rigidbody2D.rotation = angle;   
                     break;
                 }
             }
         }
 
-        public void SetSpeed(float value)
-        {
-            _speedMove = value;
-        }
+        public void SetSpeed(float value) => _speedMove = value;
     }
 }
 

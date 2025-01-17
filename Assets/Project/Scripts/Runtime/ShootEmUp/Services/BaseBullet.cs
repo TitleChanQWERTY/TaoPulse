@@ -1,34 +1,9 @@
-using UnityEngine;
-
 namespace TaoPulse.ShootEmUp.Services
 {
-    public abstract class BaseBullet : MonoBehaviour
+    public abstract class BaseBullet : BaseMovingPhysicalObject
     {
-        private Vector2 _directionMove;
-        
-        private float _speedBullet;
-        
-        private Rigidbody2D _rigidbody2D;
-        
-        private void Awake()
-        {
-            _rigidbody2D = GetComponent<Rigidbody2D>();
-        }
+        private int _damage;
 
-        private void FixedUpdate()
-        {
-            _rigidbody2D.linearVelocity = _directionMove.normalized * _speedBullet;
-        }
-
-        public void SetSpeed(float value)
-        {
-            _speedBullet = value;
-        }
-
-        public void SetMoveDirection(Vector2 direction)
-        {
-            _directionMove = direction;
-        }
+        public void SetDamage(int value) => _damage = value;
     }
 }
-

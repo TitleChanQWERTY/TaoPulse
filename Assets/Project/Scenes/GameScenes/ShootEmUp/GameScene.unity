@@ -246,6 +246,8 @@ MonoBehaviour:
   destroyingTime: 1.5
   timeOutSpawn: 0.1
   onUpdate: 0
+  bulletDamage: 15
+  bulletSpeed: 80
 --- !u!1 &726707675
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +811,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b4c7a1b26c60ba4468dd4d6c12d535d1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 436f18fd7ef3aa84abb8599a9d748b1c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

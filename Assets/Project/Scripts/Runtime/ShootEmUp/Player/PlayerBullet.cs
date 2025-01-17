@@ -1,16 +1,13 @@
-using UnityEngine;
 using TaoPulse.ShootEmUp.Services;
 
 namespace TaoPulse.ShootEmUp.Player
 {
     public sealed class PlayerBullet : BaseBullet
     {
-        [SerializeField] private float bulletSpeed;
-        
-        private void Start()
+        protected override void Init()
         {
-            SetSpeed(bulletSpeed);
             SetMoveDirection(PlayerController.Instance.transform.right);
+            transform.rotation = PlayerController.Instance.transform.rotation;
         }
     }
 }
