@@ -1,25 +1,23 @@
-using TaoPulse.Managers;
 using TaoPulse.ShootEmUp.Services;
 using UnityEngine;
 
-namespace TaoPulse.ShootEmUp.Player
+namespace Project.Scripts.Runtime.ShootEmUp.Enemy
 {
-    public sealed class PlayerShootingSystem : BaseSpawner
+    public sealed class EnemyShootingSystem : BaseSpawner
     {
         [Header("Bullet Setup")]
         [SerializeField] private float bulletSpeed = 75f;
         
         protected override void Updating()
         {
-            if (!InputManager.Instance.InputActions.ShootEmUp.Attack.IsPressed()) return;
             GameObject[] gameObjects = Spawn();
 
             if (gameObjects == null) return;
             foreach (var objects in gameObjects)
             {
-                PlayerBullet playerBullet = objects.GetComponent<PlayerBullet>();
-                if (!playerBullet) continue;
-                playerBullet.SetSpeed(bulletSpeed);
+                EnemyBullet enemyBullet = objects.GetComponent<EnemyBullet>();
+                if (!enemyBullet) continue;
+                enemyBullet.SetSpeed(bulletSpeed);
             }
         }
         

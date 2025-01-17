@@ -1,3 +1,4 @@
+using TaoPulse.Services;
 using UnityEngine;
 
 namespace TaoPulse.ShootEmUp.Services
@@ -13,21 +14,19 @@ namespace TaoPulse.ShootEmUp.Services
         [Header("Shape")]
         [SerializeField] private SpawnShape spawnShape = SpawnShape.Dot;
         [SerializeField] private float radius = 5;
+        [SerializeField] private bool rotateObjectByCircle;
         
         [Header("Spawn")]
         [SerializeField] private GameObject[] spawnObjects;
         [SerializeField] private float destroyingTime;
         [SerializeField, Min(0)] private float timeOutSpawn;
-        [SerializeField] private bool onUpdate;
 
         private float _timeOutDelayTimer;
         private bool _isCanSpawn = true;
 
         private void Update()
         {
-            TimeOutSpawn();
             Updating();
-            if (onUpdate) Spawn();
         }
 
         protected virtual void Updating()
@@ -35,22 +34,18 @@ namespace TaoPulse.ShootEmUp.Services
             
         }
 
-        private void TimeOutSpawn()
+        private bool TimeOutSpawn()
         {
-            if (_isCanSpawn) return;
-            if (Time.time - _timeOutDelayTimer < timeOutSpawn) return;
+            bool isTime = Timer.SimpleTimer(_timeOutDelayTimer, timeOutSpawn);
+            if (!isTime) return false;
             _timeOutDelayTimer = Time.time;
-            _isCanSpawn = true;
+            return true;
         }
-
-        public void SetNewSpawnObjects(GameObject[] objects) => spawnObjects = objects;
-
-        public void SetNewTimeout(float value) => timeOutSpawn = value;
 
         protected GameObject[] Spawn()
         {
             if (!_isCanSpawn) return null;
-            _isCanSpawn = false;
+            if (!TimeOutSpawn()) return null;
             return spawnShape switch
             {
                 SpawnShape.Dot => DotSpawn(),
@@ -66,13 +61,24 @@ namespace TaoPulse.ShootEmUp.Services
             {
                 float angle = i * Mathf.PI * 2 / spawnObjects.Length;
                 
-                Vector3 spawnPosition = new Vector3(
+                Vector2 spawnPosition = new Vector2(
                     Mathf.Cos(angle) * radius,
-                    Mathf.Sin(angle) * radius,
-                    0f
+                    Mathf.Sin(angle) * radius
                 );
                 
-                GameObject spawned = Instantiate(spawnObjects[i], transform.position + spawnPosition, Quaternion.identity);
+                Vector2 direction = spawnPosition.normalized;
+
+                // Розрахунок кута повороту для об'єкта
+                float rotationZ;
+                GameObject spawned;
+                if (rotateObjectByCircle)
+                {
+                    rotationZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    spawned = Instantiate(spawnObjects[i], spawnPosition + (Vector2)transform.position, Quaternion.Euler(0, 0, rotationZ));
+                }
+                else spawned = Instantiate(spawnObjects[i], spawnPosition + (Vector2)transform.position, Quaternion.identity);
+                
+                
                 gameObjects[i] = spawned;
                 if (destroyingTime <= 0) continue;
                 Destroy(spawned, destroyingTime);
@@ -94,5 +100,9 @@ namespace TaoPulse.ShootEmUp.Services
 
             return gameObjects;
         }
+        
+        public void SetNewSpawnObjects(GameObject[] objects) => spawnObjects = objects;
+
+        public void SetNewTimeout(float value) => timeOutSpawn = value;
     }
 }
