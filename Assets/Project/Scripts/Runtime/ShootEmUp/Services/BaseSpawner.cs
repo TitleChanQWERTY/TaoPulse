@@ -8,7 +8,7 @@ namespace TaoPulse.ShootEmUp.Services
         Circle
     }
     
-    public abstract class BaseSpawner : MonoBehaviour
+    public class BaseSpawner : MonoBehaviour
     {
         [Header("Shape")]
         [SerializeField] private SpawnShape spawnShape = SpawnShape.Dot;
@@ -30,7 +30,10 @@ namespace TaoPulse.ShootEmUp.Services
             if (onUpdate) Spawn();
         }
 
-        protected abstract void Updating();
+        protected virtual void Updating()
+        {
+            
+        }
 
         private void TimeOutSpawn()
         {
