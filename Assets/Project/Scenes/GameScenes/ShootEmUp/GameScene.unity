@@ -781,9 +781,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnShape: 1
-  radius: 0.1
+  radius: 1
   rotateObjectByCircle: 1
   spawnObjects:
+  - {fileID: 8380101710657887512, guid: 2b2c4a019ed458740b91164501a3d98a, type: 3}
   - {fileID: 8380101710657887512, guid: 2b2c4a019ed458740b91164501a3d98a, type: 3}
   - {fileID: 8380101710657887512, guid: 2b2c4a019ed458740b91164501a3d98a, type: 3}
   - {fileID: 8380101710657887512, guid: 2b2c4a019ed458740b91164501a3d98a, type: 3}
