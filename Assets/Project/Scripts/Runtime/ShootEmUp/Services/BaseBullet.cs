@@ -1,6 +1,6 @@
 namespace TaoPulse.ShootEmUp.Services
 {
-    public abstract class BaseBullet : BaseMovingPhysicalObject
+    public abstract class BaseBullet : BaseMovePhysicalObject
     {
         
     }

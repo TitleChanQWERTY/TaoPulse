@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace TaoPulse.ShootEmUp.Services
 {
-    public abstract class BaseMovingPhysicalObject : MonoBehaviour
+    public abstract class BaseMovePhysicalObject : MonoBehaviour
     {
         private Vector2 _directionMove;
         
-        private float _speedBullet;
+        private float _speed;
         
         private Rigidbody2D _rigidbody2D;
         
@@ -20,10 +20,10 @@ namespace TaoPulse.ShootEmUp.Services
 
         private void FixedUpdate()
         {
-            _rigidbody2D.linearVelocity = _directionMove.normalized * _speedBullet;
+            _rigidbody2D.linearVelocity = _directionMove.normalized * _speed;
         }
 
-        public void SetSpeed(float value) => _speedBullet = value;
+        public void SetSpeed(float value) => _speed = value;
 
         public void SetMoveDirection(Vector2 direction) => _directionMove = direction;
         public void SetRotation(float angle) => _rigidbody2D.rotation = angle;
