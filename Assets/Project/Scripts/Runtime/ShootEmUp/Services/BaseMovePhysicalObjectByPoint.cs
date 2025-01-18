@@ -5,7 +5,7 @@ namespace TaoPulse.ShootEmUp.Services
     public enum MovingType
     {
         Smooth,
-        CycleSmooth
+        AutoReverseSmooth
     }
     public class BaseMovePhysicalObjectByPoint : MonoBehaviour
     {
@@ -42,7 +42,7 @@ namespace TaoPulse.ShootEmUp.Services
                     _pointIndex++;
                     _pointIndex = Mathf.Clamp(_pointIndex, 0, lenght-1);
                     break;
-                case MovingType.CycleSmooth:
+                case MovingType.AutoReverseSmooth:
                 {
                     _pointIndex += _direction;
                     

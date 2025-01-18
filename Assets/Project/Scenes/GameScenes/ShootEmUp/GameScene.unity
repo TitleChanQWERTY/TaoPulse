@@ -993,8 +993,8 @@ MonoBehaviour:
   - {fileID: 568994751}
   - {fileID: 1746388996}
   - {fileID: 1427793569}
-  movingType: 0
-  speed: 100
+  movingType: 1
+  speed: 5.5
 --- !u!50 &1773737417
 Rigidbody2D:
   serializedVersion: 5
