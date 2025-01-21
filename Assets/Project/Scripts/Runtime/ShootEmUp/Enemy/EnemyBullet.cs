@@ -1,6 +1,6 @@
 using TaoPulse.ShootEmUp.Services;
 
-namespace Project.Scripts.Runtime.ShootEmUp.Enemy
+namespace TaoPulse.ShootEmUp.Enemy
 {
     public sealed class EnemyBullet : BaseBullet
     {

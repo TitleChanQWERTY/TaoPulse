@@ -1,7 +1,7 @@
 using TaoPulse.ShootEmUp.Services;
 using UnityEngine;
 
-namespace Project.Scripts.Runtime.ShootEmUp.Enemy
+namespace TaoPulse.ShootEmUp.Enemy
 {
     public sealed class EnemyShootingSystem : BaseSpawner
     {
