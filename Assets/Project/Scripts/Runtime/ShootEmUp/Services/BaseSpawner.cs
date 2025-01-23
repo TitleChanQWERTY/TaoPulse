@@ -9,7 +9,7 @@ namespace TaoPulse.ShootEmUp.Services
         Circle
     }
     
-    public class BaseSpawner : MonoBehaviour
+    public abstract class BaseSpawner : MonoBehaviour
     {
         [Header("Shape")]
         [SerializeField] private SpawnShape spawnShape = SpawnShape.Dot;
@@ -22,17 +22,6 @@ namespace TaoPulse.ShootEmUp.Services
         [SerializeField, Min(0)] private float timeOutSpawn;
 
         private float _timeOutDelayTimer;
-        private bool _isCanSpawn = true;
-
-        private void Update()
-        {
-            Updating();
-        }
-
-        protected virtual void Updating()
-        {
-            
-        }
 
         private bool TimeOutSpawn()
         {
@@ -44,7 +33,6 @@ namespace TaoPulse.ShootEmUp.Services
 
         protected GameObject[] Spawn()
         {
-            if (!_isCanSpawn) return null;
             if (!TimeOutSpawn()) return null;
             return spawnShape switch
             {
@@ -68,12 +56,10 @@ namespace TaoPulse.ShootEmUp.Services
                 
                 Vector2 direction = spawnPosition.normalized;
 
-                // Розрахунок кута повороту для об'єкта
-                float rotationZ;
                 GameObject spawned;
                 if (rotateObjectByCircle)
                 {
-                    rotationZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    float rotationZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                     spawned = Instantiate(spawnObjects[i], spawnPosition + (Vector2)transform.position, Quaternion.Euler(0, 0, rotationZ));
                 }
                 else spawned = Instantiate(spawnObjects[i], spawnPosition + (Vector2)transform.position, Quaternion.identity);

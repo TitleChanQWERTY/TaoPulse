@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e4df9e7513bcc64aa3231b5a2025862, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
+  defaultCursor: {fileID: 0}
+  shootEmUpCursor: {fileID: 21300000, guid: 6e328d0f6aeb2ff44a23444f2538b56b, type: 3}

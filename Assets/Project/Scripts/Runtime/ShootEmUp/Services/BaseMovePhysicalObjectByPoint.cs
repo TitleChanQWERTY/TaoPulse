@@ -5,7 +5,8 @@ namespace TaoPulse.ShootEmUp.Services
     public enum MovingType
     {
         Smooth,
-        AutoReverseSmooth
+        AutoReverseSmooth,
+        CycleSmooth
     }
     public class BaseMovePhysicalObjectByPoint : MonoBehaviour
     {
@@ -19,7 +20,7 @@ namespace TaoPulse.ShootEmUp.Services
 
         private int _direction = 1;
 
-        private void Awake()
+        private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }
@@ -54,6 +55,9 @@ namespace TaoPulse.ShootEmUp.Services
 
                     break;
                 }
+                case MovingType.CycleSmooth:
+                    _pointIndex = (_pointIndex + 1) % lenght;
+                    break;
             }
         }
 

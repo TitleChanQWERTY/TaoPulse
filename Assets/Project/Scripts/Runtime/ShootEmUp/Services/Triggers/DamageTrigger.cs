@@ -30,22 +30,25 @@ namespace TaoPulse.ShootEmUp.Services.Triggers
 
         private bool Damage(Collider2D other)
         {
-            if (damageType == DamageType.Player)
+            switch (damageType)
             {
-                PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-                if (playerHealth)
+                case DamageType.Player:
                 {
-                    playerHealth.Damage(damageValue);
-                    return true;
+                    if (other.TryGetComponent(out PlayerHealth playerHealth))
+                    {
+                        playerHealth.Damage(damageValue);
+                        return true;
+                    }
+                    break;
                 }
-            }
-            else if (damageType == DamageType.Enemy)
-            {
-                EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
-                if (enemyHealth)
+                case DamageType.Enemy:
                 {
-                    enemyHealth.Damage(damageValue);
-                    return true;
+                    if (other.TryGetComponent(out EnemyHealth enemyHealth))
+                    {
+                        enemyHealth.Damage(damageValue);
+                        return true;
+                    }
+                    break;
                 }
             }
 

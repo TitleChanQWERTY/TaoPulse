@@ -9,7 +9,7 @@ namespace TaoPulse.ShootEmUp.Player
         [Header("Bullet Setup")]
         [SerializeField] private float bulletSpeed = 75f;
         
-        protected override void Updating()
+        private void Update()
         {
             if (!InputManager.Instance.InputActions.ShootEmUp.Attack.IsPressed()) return;
             GameObject[] gameObjects = Spawn();
@@ -17,8 +17,7 @@ namespace TaoPulse.ShootEmUp.Player
             if (gameObjects == null) return;
             foreach (var objects in gameObjects)
             {
-                PlayerBullet playerBullet = objects.GetComponent<PlayerBullet>();
-                if (!playerBullet) continue;
+                if (!objects.TryGetComponent(out PlayerBullet playerBullet)) continue;
                 playerBullet.SetSpeed(bulletSpeed);
             }
         }

@@ -19,12 +19,8 @@ namespace TaoPulse.Managers
         private InputActions _inputActions;
 
         private bool _cursorShowed;
-        private bool _isCanCursorShowed = true;
 
-        private Controls _currentControls;
-
-        public bool CursorShowed => _cursorShowed;
-        public bool IsCanCursorShowed => _isCanCursorShowed;
+        private Controls _currentControls = Controls.KeyboardAndMouse;
 
         public Vector2 MoveAxis => _inputActions.ShootEmUp.Move.ReadValue<Vector2>();
         public Vector2 LookAxis => _inputActions.ShootEmUp.Look.ReadValue<Vector2>();
@@ -45,7 +41,6 @@ namespace TaoPulse.Managers
             _inputActions = new InputActions();
             InitNumberKeys();
             _inputManager = this;
-            ShowCursor();
             DontDestroyOnLoad(gameObject);
         }
         
@@ -70,6 +65,7 @@ namespace TaoPulse.Managers
         private void Update()
         {
             ControlChanged();
+            Cursor.visible = false;
         }
         
         private void OnEnable()
@@ -94,8 +90,6 @@ namespace TaoPulse.Managers
             {
                 if (Mouse.current.delta.x.value != 0 || Mouse.current.delta.y.value != 0)
                 {
-                    _isCanCursorShowed = true;
-                    if (_cursorShowed) ShowCursor();
                     _currentControls = Controls.KeyboardAndMouse;
                 }
             }
@@ -104,25 +98,9 @@ namespace TaoPulse.Managers
             {
                 if (Gamepad.current.IsActuated())
                 {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    _isCanCursorShowed = false;
                     _currentControls = Controls.Gamepad;
                 }
             }
-        }
-
-        public void ShowCursor()
-        {
-            _cursorShowed = true;
-            if (!_isCanCursorShowed) return;
-            Cursor.lockState = CursorLockMode.Confined;
-        }
-        
-        public void HideCursor()
-        {
-            _cursorShowed = false;
-            if (!_isCanCursorShowed) return;
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         public float GetMouseWheelValue()

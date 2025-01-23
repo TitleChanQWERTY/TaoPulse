@@ -6,10 +6,10 @@ namespace TaoPulse.Services
     public sealed class ThemeSo : ScriptableObject
     {
         [Header("Cursors")]
-        [SerializeField] private Texture2D defaultCursor;
-        [SerializeField] private Texture2D shootEmUpCursor;
+        [SerializeField] private Sprite defaultCursor;
+        [SerializeField] private Sprite shootEmUpCursor;
 
-        public Texture2D ShootEmUpCursor => shootEmUpCursor;
-        public Texture2D DefaultCursor => defaultCursor;
+        public Sprite ShootEmUpCursor => shootEmUpCursor;
+        public Sprite DefaultCursor => defaultCursor;
     }
 }
